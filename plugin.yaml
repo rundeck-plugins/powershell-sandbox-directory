@@ -1,0 +1,46 @@
+name: powershell-sandbox-directory-steps
+version: 1.0.0
+rundeckPluginVersion: 1.2
+author: Rundeck
+date: Tue Dec 12 2017
+providers:
+  - name: powershell-sandbox-directory-create
+    service: RemoteScriptNodeStep
+    title: 'Powershell / Sandbox / Create'
+    description: 'Create sandbox directory'
+    plugin-type: script
+    script-interpreter: "powershell -NonInteractive -Noprofile -ExecutionPolicy Bypass -Command"
+    script-file: Sandbox-Create.ps1
+    script-args: '-Basedir ${config.destination} -Ident ${config.ident} -Tempdir ${config.tempdir}'
+    config:
+      - type: String
+        name: destination
+        title: destination
+        description: 'the path for the temporary directory'
+      - type: String
+        name: ident
+        title: 'The identity string'
+      - type: String
+        name: tempdir
+        title: 'The temp directory'
+        default: '%TEMP%'
+  - name: powershell-sandbox-directory-create
+    service: RemoteScriptNodeStep
+    title: 'Powershell / Sandbox / Delete'
+    description: 'Delete sandbox directory'
+    plugin-type: script
+    script-interpreter: "powershell -NonInteractive -Noprofile -ExecutionPolicy Bypass -Command"
+    script-file: Sandbox-Delete.ps1
+    script-args: '-Basedir ${config.destination} -Ident ${config.ident} -Tempdir ${config.tempdir}'
+    config:
+      - type: String
+        name: destination
+        title: destination
+        description: 'the path for the temporary directory'
+      - type: String
+        name: ident
+        title: 'The identity string'
+      - type: String
+        name: tempdir
+        title: 'The temp directory'
+        default: '%TEMP%'
