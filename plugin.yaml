@@ -11,36 +11,41 @@ providers:
     plugin-type: script
     script-interpreter: "powershell -NonInteractive -Noprofile -ExecutionPolicy Bypass -Command"
     script-file: Sandbox-Create.ps1
-    script-args: '-Basedir ${config.destination} -Ident ${config.ident} -Tempdir ${config.tempdir}'
+    script-args: "-Destination ${config.destination} -Ident ${config.ident} -Print ${config.print}"
     config:
       - type: String
         name: destination
         title: destination
         description: 'the path for the temporary directory'
+        required: true
+        default: $env:USERPROFILE
       - type: String
         name: ident
         title: 'The identity string'
-      - type: String
-        name: tempdir
-        title: 'The temp directory'
-        default: '%TEMP%'
-  - name: powershell-sandbox-directory-create
+        default: ${job.execid}
+        required: true
+      - type: Boolean
+        name: print
+        title: Print Sandbox for data capture
+        default: true
+        description: 'Print Sandbox folder on Data-Capture format'
+  - name: powershell-sandbox-directory-delete
     service: RemoteScriptNodeStep
     title: 'Powershell / Sandbox / Delete'
     description: 'Delete sandbox directory'
     plugin-type: script
     script-interpreter: "powershell -NonInteractive -Noprofile -ExecutionPolicy Bypass -Command"
     script-file: Sandbox-Delete.ps1
-    script-args: '-Basedir ${config.destination} -Ident ${config.ident} -Tempdir ${config.tempdir}'
+    script-args: "-Destination ${config.destination} -Ident ${config.ident}"
     config:
       - type: String
         name: destination
         title: destination
         description: 'the path for the temporary directory'
+        required: true
+        default: $env:USERPROFILE
       - type: String
         name: ident
         title: 'The identity string'
-      - type: String
-        name: tempdir
-        title: 'The temp directory'
-        default: '%TEMP%'
+        default: ${job.execid}
+        required: true
