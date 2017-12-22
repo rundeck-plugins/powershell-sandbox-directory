@@ -11,7 +11,7 @@
     The identity string
 .NOTES
   Version:        1.0.0
-  Author:         Miguel
+  Author:         Rundeck
   Creation Date:  12/12/2017
   
 #>
