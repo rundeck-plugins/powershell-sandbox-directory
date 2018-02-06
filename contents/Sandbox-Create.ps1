@@ -29,8 +29,8 @@ Begin {
 
 		If (-Not ( Test-Path $Destination) )
 		{
-			Write-Error "Error: destination path doesn't exists"
-        	exit 1
+			Write-Host "Creating base folder: $($Destination)"
+			New-Item $Destination -ItemType Directory
 		}
 
 		$folder = $Destination + "\" + $Ident
